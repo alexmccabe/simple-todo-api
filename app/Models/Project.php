@@ -2,18 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Task extends BaseModel
+class Project extends BaseModel
 {
     use HasFactory;
 
-    protected $fillable = ['description', 'title'];
-
-    public function project()
+    public function tasks()
     {
-        return $this->hasOne(Project::class);
+        return $this->hasMany(Task::class);
     }
 
     public function user()
