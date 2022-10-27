@@ -18,23 +18,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
-        Project::truncate();
-        Task::truncate();
-
         $user = User::factory()->create();
+        $project = Project::factory([
+            'user_id' => $user->id
+        ])->create();
 
-        $project = Project::create([
-            'title' => 'First Project',
-            'slug' => uniqid(rand()),
+        Task::factory(5)->create([
             'user_id' => $user->id,
-        ]);
-
-        Task::create([
-            'title' => 'First Task',
-            'slug' => uniqid(rand()),
-            'project_id' => $project->id,
-            'user_id' => $user->id,
+            'project_id' => $project->id
         ]);
 
         // \App\Models\User::factory()->create([
